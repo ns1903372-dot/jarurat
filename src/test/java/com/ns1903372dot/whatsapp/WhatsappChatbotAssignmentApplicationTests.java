@@ -28,6 +28,15 @@ class WhatsappChatbotAssignmentApplicationTests {
 	}
 
 	@Test
+	void rootEndpointReturnsHelpfulMessage() throws Exception {
+		HttpResponse<String> response = send("GET", "/", null);
+
+		assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+		assertThat(response.body()).contains("WhatsApp Chatbot Backend Simulation");
+		assertThat(response.body()).contains("/webhook");
+	}
+
+	@Test
 	void webhookReturnsHelloForHi() throws Exception {
 		HttpResponse<String> response = send("POST", "/webhook", """
 				{
